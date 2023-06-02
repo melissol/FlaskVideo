@@ -6,8 +6,13 @@ Compress(app)
 app.config['COMPRESS_COMPRESSION_LEVEL'] = 9
 
 
+# @app.route('/')
+# def index():
+#    return render_template('home.html')
+
+
 @app.route('/')
-def index():
+def video():
     return render_template('video.html')
 
 
