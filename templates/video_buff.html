@@ -6,15 +6,15 @@
 <body>
 <h2>Serving video files from Flask template manual buffering</h2>
 <video id="video" width="640" height="360" controls>
-    <source src="{{url_for('static', filename='video.mp4')}}" type="video/mp4">
+    <source src="{{url_for('static', filename='video_buff.mp4')}}" type="video/mp4">
     Your browser does not support the video tag.
 </video>
 <script>
     // Get the video element
-    var video = document.getElementById("myVideo");
+    var video = document.getElementById("video");
 
     // URL of the video file
-    var videoUrl = "static/video.mp4";
+    var videoUrl = "static/video_buff.mp4";
 
     // Fetch the first 10,000 bytes (10KB approx) of the video file
     fetch(videoUrl, {headers: {Range: "bytes=0-9999"}})

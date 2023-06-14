@@ -3,6 +3,7 @@ import time
 
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.firefox.service import Service
 
 
 # Function to measure the response time of a route
@@ -12,7 +13,10 @@ def measure_response_time(url):
     options.set_preference("media.autoplay.allow-muted", True)
     options.add_argument("-headless")  # Run Firefox in headless mode (optional)
 
-    driver = webdriver.Firefox(options=options)
+    # Set the path to the Firefox driver executable
+    firefox_driver_path = r"C:\Users\Loukas Melissopoulos\Documents\PythonProjekte\FlaskVideo"
+
+    driver = webdriver.Firefox(service=Service(firefox_driver_path), options=options)
 
     start_time = time.time()
     driver.get(url)
@@ -42,7 +46,7 @@ def run_load_testing(routes, num_users, num_requests):
 if __name__ == '__main__':
     routes = ['http://localhost:5000/video', 'http://localhost:5000/video_buff', 'http://localhost:5000/video_comp']
     num_users = 100
-    num_requests = 1
+    num_requests = 10
 
     # Run the load testing
     response_times = run_load_testing(routes, num_users, num_requests)
