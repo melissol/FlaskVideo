@@ -12,7 +12,7 @@ def simulate_user_action(driver):
 
     try:
         # Perform the desired actions on your Flask app
-        driver.get("http://127.0.0.1:5000")  # Replace with the URL of your Flask app
+        driver.get("http://127.0.0.1:5000/video_test")  # Replace with the URL of your Flask app
         # Add more actions if needed (e.g., form submissions, button clicks, etc.)
 
         # Print the title of the page for demonstration
@@ -46,7 +46,7 @@ try:
     # Create a concurrent execution pool
     with concurrent.futures.ThreadPoolExecutor(max_workers=concurrent_users) as executor:
         # Submit the user action function to the executor
-        futures = [executor.submit(simulate_user_action, driver) for _ in range(1000)]
+        futures = [executor.submit(simulate_user_action, driver) for _ in range(2)]
 
         # Wait for all tasks to complete
         for future in concurrent.futures.as_completed(futures):

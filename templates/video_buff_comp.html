@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Example with buffering</title>
+</head>
+<body>
+<h2>Serving video files from Flask template manual buffering</h2>
+<video id="video" width="640" height="360" controls>
+    <source src="{{url_for('static', filename='compressed_video.mp4')}}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<script>
+    // Get the video element
+    var video = document.getElementById("myVideo");
+
+    // URL of the video file
+    var videoUrl = "static/compressed_video.mp4";
+
+    // Fetch the first 10,000 bytes (10KB approx) of the video file
+    fetch(videoUrl, {headers: {Range: "bytes=0-9999"}})
+        .then(response => response.blob())
+        .then(blob => {
+            // Create a URL for the fetched video segment
+            var url = URL.createObjectURL(blob);
+
+            // Set the source of the video to the fetched segment
+            video.src = url;
+        })
+        .catch(error => {
+            console.error("Error loading video segment:", error);
+        });
+
+    // Add an event listener to start preloading the full video after the segment is played
+    video.addEventListener("ended", function () {
+        // Set the source of the video to the full video file
+        video.src = videoUrl;
+        // Load the full video manually to start pre-buffering the rest
+        video.load();
+    });
+</script>
+</body>
+</html>
